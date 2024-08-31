@@ -60,6 +60,12 @@ int main(int argc, char* argv[]) {
         } else
         if (pattern == "\\d" && find_digit(input_line)) {
             return 0;
+        } else if(pattern[0] == '['){
+            for (int i = 1; i < pattern.length() - 1; i++) {
+                if(match_pattern(input_line, std::string(1, pattern[i]))){
+                    return 0;
+                }
+            }
         } else if (match_pattern(input_line, pattern)) {
             return 0;
         } else {
