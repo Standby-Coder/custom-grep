@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <unordered_map>
 using namespace std;
 
 bool match_pattern(const string& input_line, const string& pattern) {
@@ -90,36 +91,32 @@ int main(int argc, char* argv[]) {
         } 
         else if (pattern[pattern_idx] == '['){
             cout<<"Search Bracket"<<endl;
-            int flag = 1;
-            if (pattern[pattern_idx + 1] == '^'){
-                pattern_idx++;
-                cout<<"Search Not"<<endl;
-                int x = 0;
-                for (int j = pattern_idx + 2; j < pattern.length() - 1; j++){
-                    if (input_line[i] == pattern[j]){
-                        cout<<"Fail"<<endl;
-                        x = 1;
-                        break;
-                    }
-                }
-                flag = x;
-            } else{
-                cout<<"Search Normal"<<endl;
-                for (int j = pattern_idx + 1; j < pattern.length() - 1; j++){
-                    if (input_line[i] == pattern[j]){
-                        flag = 0;
-                        cout<<"Success"<<endl;
-                        break;
-                    }
-                }
+            unordered_map<char, int> m;
+            
+            int sign = pattern[++pattern_idx] == '^' ? 1 : 0;
+            int end = int(pattern.find(']', pattern_idx));
+            
+            for(int j = pattern_idx + sign; j < end; j++){
+                m[pattern[j]] = 1;
             }
-            if (flag){
-                cout<<"Fail2"<<endl;
-                pattern_idx = 0;
+            
+            if(sign){
+                if(m.find(input_line[i]) == m.end()){
+                    cout<<"Success"<<endl;
+                    pattern_idx = end + 1;
+                } else{
+                    cout<<"Fail"<<endl;
+                    pattern_idx = 0;
+                }
             } else{
-                cout<<"Success2"<<endl;
-                pattern_idx++;
-            }
+                if(m.find(input_line[i]) != m.end()){
+                    cout<<"Success"<<endl;
+                    pattern_idx = end + 1;
+                } else{
+                    cout<<"Fail"<<endl;
+                    pattern_idx = 0;
+                }
+            } 
         }
         else if (input_line[i] == pattern[pattern_idx]){
             cout<<"Match "<<pattern[pattern_idx]<<endl;
