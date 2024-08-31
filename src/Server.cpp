@@ -70,6 +70,7 @@ int main(int argc, char* argv[]) {
     for(int i = 0; i < input_line.length(); i++){
         if (pattern_idx == pattern.length()){
             if(strict_end && i != input_line.length()){
+                cout<<"Strict End Fail"<<endl;
                 return 1;
             }
             break;
@@ -77,7 +78,15 @@ int main(int argc, char* argv[]) {
 
         cout<<"Input line char: "<<input_line[i]<<endl;
         cout<<"Pattern char: "<<pattern[pattern_idx]<<endl;
-        if (pattern[pattern_idx] == '\\'){
+
+        if (pattern[pattern_idx] == '+'){
+            char prev = pattern[pattern_idx - 1];
+            while(prev == input_line[i]){
+                i++;
+            }
+            pattern_idx++;
+        }
+        else if (pattern[pattern_idx] == '\\'){
             pattern_idx++;
             if(pattern[pattern_idx] == 'd'){
                 cout<<"Search Digit"<<endl;
