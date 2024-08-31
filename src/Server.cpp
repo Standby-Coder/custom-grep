@@ -86,7 +86,9 @@ int grep(string pattern, string input_line){
             }
 
             if(pattern_idx == end){
-                return grep(p, input_line.substr(i, p.length() - 2));
+                result = grep(p, input_line.substr(i, p.length() - 2));
+                if(!result) return 0;
+                else return 1;
             }
         }
         else if(pattern[pattern_idx] == '.'){ // Any character
