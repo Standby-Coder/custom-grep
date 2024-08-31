@@ -85,6 +85,7 @@ int main(int argc, char* argv[]) {
         else if (pattern[pattern_idx] == '['){
             int flag = 1;
             if (pattern[pattern_idx + 1] == '^'){
+                pattern_idx++;
                 int x = 0;
                 for (int j = pattern_idx + 2; j < pattern.length() - 1; j++){
                     if (input_line[i] == pattern[j]){
@@ -93,7 +94,7 @@ int main(int argc, char* argv[]) {
                     }
                 }
                 flag = x;
-            } else{
+            } else {
                 for (int j = pattern_idx + 1; j < pattern.length() - 1; j++){
                     if (input_line[i] == pattern[j]){
                         flag = 0;
