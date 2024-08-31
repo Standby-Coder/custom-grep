@@ -116,7 +116,7 @@ int main(int argc, char* argv[]) {
                 pattern_idx++;
             }
         }
-        if (input_line[i] == pattern[pattern_idx]){
+        else if (input_line[i] == pattern[pattern_idx]){
             cout<<"Match "<<pattern[pattern_idx]<<endl;
             pattern_idx++;
         } else{
