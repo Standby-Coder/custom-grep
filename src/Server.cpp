@@ -232,4 +232,5 @@ int main(int argc, char* argv[]) {
     string input_line;
     getline(cin, input_line);
     
+    return grep(pattern, input_line);
 }
