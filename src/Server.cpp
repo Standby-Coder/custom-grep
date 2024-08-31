@@ -79,10 +79,11 @@ int grep(string pattern, string input_line){
                     p += pattern[pattern_idx++];;
                     cout<<p<<endl;
                 }
-                if(result)
+                if(!result){
+                    pattern_idx = end + 1;
                     break;
-            }   
-            if(!result) {cout<<"Success Alternation"<<endl;return 0;}
+                }
+            }
         }
         else if(pattern[pattern_idx] == '.'){ // Any character
             pattern_idx++;
