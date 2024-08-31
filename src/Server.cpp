@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <unordered_map>
-#include <vector>
 using namespace std;
 
 bool match_pattern(const string& input_line, const string& pattern) {
@@ -31,7 +30,8 @@ bool find_alpha(const string& input_line) {
     return false;
 }
 
-int grep( string pattern, string input_line){
+int grep(string pattern, string input_line){
+    
     int pattern_idx = 0;
     int strict_start = pattern[pattern_idx] == '^' ? 1 : 0;
     if (strict_start){
@@ -42,6 +42,7 @@ int grep( string pattern, string input_line){
     if (strict_end){
         pattern = pattern.substr(0, pattern.length() - 1);
     }
+
 
     for(int i = 0; i < input_line.length(); i++){
         if (pattern_idx == pattern.length()){
@@ -55,7 +56,25 @@ int grep( string pattern, string input_line){
         cout<<"Input line char: "<<input_line[i]<<endl;
         cout<<"Pattern char: "<<pattern[pattern_idx]<<endl;
         
-        if(pattern[pattern_idx] == '.'){ // Any character
+        if(pattern[pattern_idx] == '('){
+            cout<<"Search Alternation"<<endl;
+            int end = int(pattern.find(')', pattern_idx));
+            string p = "";
+            int result = 0;
+            while(pattern_idx <= end){
+                p += pattern[pattern_idx++];
+                if(pattern[pattern_idx] == '|'){
+                    p = '^' + p + '$';
+                    result = result || grep(p, input_line.substr(i, p.length() - 2));
+                    p = "";
+                }
+                if(result)
+                    break;
+                else
+                    return 0;
+            }   
+        }
+        else if(pattern[pattern_idx] == '.'){ // Any character
             pattern_idx++;
         }
         else if (pattern[pattern_idx] == '?'){
@@ -184,6 +203,7 @@ int grep( string pattern, string input_line){
     } else{
         return 1;
     }
+
 }
 
 int main(int argc, char* argv[]) {
@@ -211,25 +231,5 @@ int main(int argc, char* argv[]) {
     //
     string input_line;
     getline(cin, input_line);
-
-    vector<string> pattern_items(0);
-    if(pattern[0] == '(') {
-        string p = "";
-        for(int i = 0; i < pattern.length() - 1; i++){
-            if(pattern[i] == '|'){
-                pattern_items.push_back(p);
-                p = "";
-            } else{
-                p += pattern[i];
-            }
-        }
-
-        int result = 0;
-        for (int i = 0; i<pattern_items.size(); i++){
-            result = result || grep(pattern_items[i], input_line);
-        }
-    }
-    else
-        return grep(pattern, input_line);
     
 }
