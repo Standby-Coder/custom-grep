@@ -86,7 +86,7 @@ int grep(string pattern, string input_line){
             }
 
             if(pattern_idx == end){
-                result = grep(p, input_line.substr(i, p.length() - 2));
+                result = grep(p, input_line.substr(i, p.length()));
                 if(!result) return 0;
                 else return 1;
             }
