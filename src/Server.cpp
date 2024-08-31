@@ -62,10 +62,19 @@ int main(int argc, char* argv[]) {
         pattern_idx++;
     }
 
+    int strict_end = pattern[pattern.length() - 1] == '$' ? 1 : 0;
+    if (strict_end){
+        pattern = pattern.substr(0, pattern.length() - 1);
+    }
+
     for(int i = 0; i < input_line.length(); i++){
         if (pattern_idx == pattern.length()){
+            if(strict_end && i != input_line.length()){
+                return 1;
+            }
             break;
         }
+
         cout<<"Input line char: "<<input_line[i]<<endl;
         cout<<"Pattern char: "<<pattern[pattern_idx]<<endl;
         if (pattern[pattern_idx] == '\\'){
@@ -75,7 +84,7 @@ int main(int argc, char* argv[]) {
                 if (!isdigit(input_line[i])){
                     pattern_idx = 0;
                     if(strict_start){
-                        cout<<"Strict Fail"<<endl;
+                        cout<<"Strict Start Fail"<<endl;
                         break;
                     }
                     cout<<"Fail"<<endl;
@@ -89,7 +98,7 @@ int main(int argc, char* argv[]) {
                 if (!isalnum(input_line[i])){
                     pattern_idx = 0;
                     if(strict_start){
-                        cout<<"Strict Fail"<<endl;
+                        cout<<"Strict Start Fail"<<endl;
                         break;
                     }
                     cout<<"Fail"<<endl;
@@ -118,7 +127,7 @@ int main(int argc, char* argv[]) {
                 } else{
                     cout<<"Fail"<<endl;
                     if(strict_start){
-                        cout<<"Strict Fail"<<endl;
+                        cout<<"Strict Start Fail"<<endl;
                         break;
                     }
                     pattern_idx = 0;
@@ -130,7 +139,7 @@ int main(int argc, char* argv[]) {
                 } else{
                     cout<<"Fail"<<endl;
                     if(strict_start){
-                        cout<<"Strict Fail"<<endl;
+                        cout<<"Strict Start Fail"<<endl;
                         break;
                     }
                     pattern_idx = 0;
@@ -144,7 +153,7 @@ int main(int argc, char* argv[]) {
             cout<<"Failure"<<endl;
             pattern_idx = 0;
             if(strict_start){
-                cout<<"Strict Fail"<<endl;
+                cout<<"Strict Start Fail"<<endl;
                 break;
             }
         }
