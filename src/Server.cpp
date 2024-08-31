@@ -79,8 +79,9 @@ int grep(string pattern, string input_line){
                     p += pattern[pattern_idx++];;
                     cout<<p<<endl;
                 }
-                if(!result){
+                if(result){
                     pattern_idx = end + 1;
+                    return 0;
                     break;
                 }
             }
