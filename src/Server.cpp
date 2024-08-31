@@ -19,6 +19,15 @@ bool find_digit(const std::string& input_line) {
     return false;
 }
 
+bool find_alpha(const std::string& input_line) {
+    for (char c : input_line) {
+        if (std::isalpha(c)) {
+            return true;
+        }
+    }
+    return false;
+}
+
 int main(int argc, char* argv[]) {
     // Flush after every std::cout / std::cerr
     std::cout << std::unitbuf;
@@ -46,6 +55,9 @@ int main(int argc, char* argv[]) {
     std::getline(std::cin, input_line);
     
     try {
+        if (pattern == "\\w" && (find_alpha(input_line) || find_digit(input_line))) {
+            return 0;
+        } else
         if (pattern == "\\d" && find_digit(input_line)) {
             return 0;
         } else if (match_pattern(input_line, pattern)) {
