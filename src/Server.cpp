@@ -71,7 +71,9 @@ int grep(string pattern, string input_line){
                     result = result || !grep(p, input_line.substr(i, p.length() - 2));
                     if (result){
                         cout<<"Success Pattern"<<endl;
-                        break;
+                        pattern_idx = end + 1;
+                        i = i + p.length() - 2;
+                        return 0;
                     }
                     p = "";
                 }
@@ -79,11 +81,7 @@ int grep(string pattern, string input_line){
                     p += pattern[pattern_idx++];;
                     cout<<p<<endl;
                 }
-                if(result){
-                    pattern_idx = end + 1;
-                    return 0;
-                    break;
-                }
+                if(!result) return 1;
             }
         }
         else if(pattern[pattern_idx] == '.'){ // Any character
