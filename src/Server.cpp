@@ -70,11 +70,12 @@ int main(int argc, char* argv[]) {
                 }
                 if(flag) return flag;
                 else flag = 0;
-            }
-            for (int i = 1; i < pattern.length() - 1; i++) {
-                if(match_pattern(input_line, std::string(1, pattern[i]))){
-                    flag = 0;
-                    break;
+            } else{
+                for (int i = 1; i < pattern.length() - 1; i++) {
+                    if(match_pattern(input_line, std::string(1, pattern[i]))){
+                        flag = 0;
+                        break;
+                    }
                 }
             }
             return flag;
