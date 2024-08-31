@@ -82,7 +82,7 @@ int grep(string pattern, string input_line){
                 if(result)
                     break;
             }   
-            if(!result) return 0;
+            if(!result) {cout<<"Success Alternation"<<endl;return 0;}
         }
         else if(pattern[pattern_idx] == '.'){ // Any character
             pattern_idx++;
