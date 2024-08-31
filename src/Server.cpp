@@ -92,6 +92,11 @@ int main(int argc, char* argv[]) {
             if(pattern[pattern_idx] == 'd'){
                 cout<<"Search Digit"<<endl;
                 if (!isdigit(input_line[i])){
+                    if(pattern_idx < pattern.length() - 1 && pattern[pattern_idx + 1] == '?'){
+                        pattern_idx += 2;
+                        cout<<"Chance"<<endl;
+                        continue;
+                    }
                     pattern_idx = 0;
                     if(strict_start){
                         cout<<"Strict Start Fail"<<endl;
@@ -106,6 +111,11 @@ int main(int argc, char* argv[]) {
             } else if(pattern[pattern_idx] == 'w'){
                 cout<<"Search AlphaNum"<<endl;
                 if (!isalnum(input_line[i])){
+                    if(pattern_idx < pattern.length() - 1 && pattern[pattern_idx + 1] == '?'){
+                        pattern_idx += 2;
+                        cout<<"Chance"<<endl;
+                        continue;
+                    }
                     pattern_idx = 0;
                     if(strict_start){
                         cout<<"Strict Start Fail"<<endl;
@@ -135,6 +145,11 @@ int main(int argc, char* argv[]) {
                     cout<<"Success"<<endl;
                     pattern_idx = end + 1;
                 } else{
+                    if(pattern_idx < pattern.length() - 1 && pattern[pattern_idx + 1] == '?'){
+                        pattern_idx += 2;
+                        cout<<"Chance"<<endl;
+                        continue;
+                    }
                     cout<<"Fail"<<endl;
                     if(strict_start){
                         cout<<"Strict Start Fail"<<endl;
@@ -147,6 +162,11 @@ int main(int argc, char* argv[]) {
                     cout<<"Success"<<endl;
                     pattern_idx = end + 1;
                 } else{
+                    if(pattern_idx < pattern.length() - 1 && pattern[pattern_idx + 1] == '?'){
+                        pattern_idx += 2;
+                        cout<<"Chance"<<endl;
+                        continue;
+                    }
                     cout<<"Fail"<<endl;
                     if(strict_start){
                         cout<<"Strict Start Fail"<<endl;
@@ -160,6 +180,11 @@ int main(int argc, char* argv[]) {
             cout<<"Match "<<pattern[pattern_idx]<<endl;
             pattern_idx++;
         } else{
+            if(pattern_idx < pattern.length() - 1 && pattern[pattern_idx + 1] == '?'){
+                pattern_idx += 2;
+                cout<<"Chance"<<endl;
+                continue;
+            }
             cout<<"Failure"<<endl;
             pattern_idx = 0;
             if(strict_start){
