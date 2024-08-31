@@ -57,10 +57,13 @@ int grep(string pattern, string input_line){
         cout<<"Pattern char: "<<pattern[pattern_idx]<<endl;
         
         if(pattern[pattern_idx] == '('){
+            pattern_idx++;
             cout<<"Search Alternation"<<endl;
+
             int end = int(pattern.find(')', pattern_idx));
             string p = "";
             int result = 0;
+            
             while(pattern_idx <= end){
                 if(pattern[pattern_idx] == '|'){
                     p = '^' + p + '$';
