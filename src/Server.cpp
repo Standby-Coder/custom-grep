@@ -56,13 +56,20 @@ int main(int argc, char* argv[]) {
     string input_line;
     getline(cin, input_line);
 
+    if (pattern[0] == '^') {
+        if (match_pattern(input_line, pattern.substr(1))) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
     int pattern_idx = 0;
 
     for(int i = 0; i < input_line.length(); i++){
         if (pattern_idx == pattern.length()){
             break;
         }
-
         cout<<"Input line char: "<<input_line[i]<<endl;
         cout<<"Pattern char: "<<pattern[pattern_idx]<<endl;
         if (pattern[pattern_idx] == '\\'){
