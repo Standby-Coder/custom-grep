@@ -58,6 +58,9 @@ int main(int argc, char* argv[]) {
 
     int pattern_idx = 0;
     int strict_start = pattern[pattern_idx] == '^' ? 1 : 0;
+    if (strict_start){
+        pattern_idx++;
+    }
 
     for(int i = 0; i < input_line.length(); i++){
         if (pattern_idx == pattern.length()){
