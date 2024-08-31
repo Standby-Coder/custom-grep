@@ -65,11 +65,14 @@ int main(int argc, char* argv[]) {
 
             if (pattern[1] == '^'){
                 for (int i = 2; i < pattern.length() - 1; i++) {
-                    if(match_pattern(input_line, std::string(1, pattern[i])))
+                    if(match_pattern(input_line, std::string(1, pattern[i]))){
                         flag = 1;
+                        break;
+                    }
                 }
-                if(flag) return flag;
-                else flag = 0;
+                if (!flag){
+                    return 0;
+                }
             } else{
                 for (int i = 1; i < pattern.length() - 1; i++) {
                     if(match_pattern(input_line, std::string(1, pattern[i]))){
