@@ -78,8 +78,11 @@ int main(int argc, char* argv[]) {
 
         cout<<"Input line char: "<<input_line[i]<<endl;
         cout<<"Pattern char: "<<pattern[pattern_idx]<<endl;
-
-        if (pattern[pattern_idx] == '?'){
+        
+        if(pattern[pattern_idx] == '.'){ // Any character
+            pattern_idx++;
+        }
+        else if (pattern[pattern_idx] == '?'){
             pattern_idx++;
             i--;
         }
