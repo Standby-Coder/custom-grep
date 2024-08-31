@@ -66,16 +66,20 @@ int main(int argc, char* argv[]) {
                 cout<<"Search Digit"<<endl;
                 if (!isdigit(input_line[i])){
                     pattern_idx = 0;
+                    cout<<"Fail"<<endl;
                 }
                 else {
                     pattern_idx++;
+                    cout<<"Success"<<endl;
                 }
             } else if(pattern[pattern_idx] == 'w'){
                 cout<<"Search AlphaNum"<<endl;
                 if (!isalnum(input_line[i])){
                     pattern_idx = 0;
+                    cout<<"Fail"<<endl;
                 }
                 else {
+                    cout<<"Success"<<endl;
                     pattern_idx++;
                 }
             }
@@ -88,6 +92,7 @@ int main(int argc, char* argv[]) {
                 int x = 0;
                 for (int j = pattern_idx + 2; j < pattern.length() - 1; j++){
                     if (input_line[i] == pattern[j]){
+                        cout<<"Fail"<<endl;
                         x = 1;
                         break;
                     }
@@ -98,20 +103,24 @@ int main(int argc, char* argv[]) {
                 for (int j = pattern_idx + 1; j < pattern.length() - 1; j++){
                     if (input_line[i] == pattern[j]){
                         flag = 0;
+                        cout<<"Success"<<endl;
                         break;
                     }
                 }
             }
             if (flag){
+                cout<<"Fail2"<<endl;
                 pattern_idx = 0;
             } else{
+                cout<<"Success2"<<endl;
                 pattern_idx++;
             }
         }
         if (input_line[i] == pattern[pattern_idx]){
-            cout<<"Matched"<<endl;
+            cout<<"Match "<<pattern[pattern_idx]<<endl;
             pattern_idx++;
         } else{
+            cout<<"Failure"<<endl;
             pattern_idx = 0;
         }
     }
