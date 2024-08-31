@@ -30,32 +30,7 @@ bool find_alpha(const string& input_line) {
     return false;
 }
 
-int main(int argc, char* argv[]) {
-    // Flush after every cout / cerr
-    cout << unitbuf;
-    cerr << unitbuf;
-
-    // You can use print statements as follows for debugging, they'll be visible when running tests.
-    cout << "Logs from your program will appear here" << endl;
-
-    if (argc != 3) {
-        cerr << "Expected two arguments" << endl;
-        return 1;
-    }
-
-    string flag = argv[1];
-    string pattern = argv[2];
-
-    if (flag != "-E") {
-        cerr << "Expected first argument to be '-E'" << endl;
-        return 1;
-    }
-
-    // Uncomment this block to pass the first stage
-    //
-    string input_line;
-    getline(cin, input_line);
-
+int grep( string pattern, string input){
     int pattern_idx = 0;
     int strict_start = pattern[pattern_idx] == '^' ? 1 : 0;
     if (strict_start){
@@ -208,42 +183,52 @@ int main(int argc, char* argv[]) {
     } else{
         return 1;
     }
-    
-    // try {
-    //     if (pattern == "\\w" && (find_alpha(input_line) || find_digit(input_line))) {
-    //         return 0;
-    //     } else
-    //     if (pattern == "\\d" && find_digit(input_line)) {
-    //         return 0;
-    //     } else if(pattern[0] == '['){
-    //         int flag = 1;
+}
 
-    //         if (pattern[1] == '^'){
-    //             cout<<1<<endl;
-    //             int x = 0;
-    //             for (int i = 2; i < pattern.length() - 1; i++) {
-    //                 if(match_pattern(input_line, string(1, pattern[i]))){
-    //                     x = 1;
-    //                     break;
-    //                 }
-    //             }
-    //             flag = x;
-    //         } else{
-    //             for (int i = 1; i < pattern.length() - 1; i++) {
-    //                 if(match_pattern(input_line, string(1, pattern[i]))){
-    //                     flag = 0;
-    //                     break;
-    //                 }
-    //             }
-    //         }
-    //         return flag;
-    //     } else if (match_pattern(input_line, pattern)) {
-    //         return 0;
-    //     } else {
-    //         return 1;
-    //     }
-    // } catch (const runtime_error& e) {
-    //     cerr << e.what() << endl;
-    //     return 1;
-    // }
+int main(int argc, char* argv[]) {
+    // Flush after every cout / cerr
+    cout << unitbuf;
+    cerr << unitbuf;
+
+    // You can use print statements as follows for debugging, they'll be visible when running tests.
+    cout << "Logs from your program will appear here" << endl;
+
+    if (argc != 3) {
+        cerr << "Expected two arguments" << endl;
+        return 1;
+    }
+
+    string flag = argv[1];
+    string pattern = argv[2];
+
+    if (flag != "-E") {
+        cerr << "Expected first argument to be '-E'" << endl;
+        return 1;
+    }
+
+    // Uncomment this block to pass the first stage
+    //
+    string input_line;
+    getline(cin, input_line);
+
+    vector<string> pattern_items(0);
+    if(pattern[0] == '(') {
+        string p = "";
+        for(int i = 0; i < pattern.length() - 1; i++){
+            if(pattern[i] == '|'){
+                pattern_items.push_back(p);
+                p = "";
+            } else{
+                p += pattern[i];
+            }
+        }
+
+        int result = 0;
+        for (int i = 0; i<pattern_items.size(); i++){
+            result = result || grep(pattern_items[i], input_line);
+        }
+    }
+    else
+        return grep(pattern, input_line);
+    
 }
