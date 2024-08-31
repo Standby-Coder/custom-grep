@@ -64,16 +64,18 @@ int grep(string pattern, string input_line){
             string p = "";
             int result = 0;
             
-            while(pattern_idx <= end){
+            while(pattern_idx < end){
                 if(pattern[pattern_idx] == '|'){
                     p = '^' + p + '$';
                     cout<<"Checking Pattern: "<<p<<endl;
-                    result = result || !grep(p, input_line.substr(i, p.length() - 2));
-                    if (result){
+                    result = grep(p, input_line.substr(i, p.length() - 2));
+                    if (!result){
                         cout<<"Success Pattern"<<endl;
                         pattern_idx = end + 1;
                         i = i + p.length() - 2;
                         return 0;
+                    } else {
+                        pattern_idx++;
                     }
                     p = "";
                 }
@@ -81,6 +83,10 @@ int grep(string pattern, string input_line){
                     p += pattern[pattern_idx++];;
                     cout<<p<<endl;
                 }
+            }
+
+            if(pattern_idx == end){
+                return 1;
             }
         }
         else if(pattern[pattern_idx] == '.'){ // Any character
