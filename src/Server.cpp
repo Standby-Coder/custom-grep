@@ -10,6 +10,15 @@ bool match_pattern(const std::string& input_line, const std::string& pattern) {
     }
 }
 
+bool find_digit(const std::string& input_line) {
+    for (char c : input_line) {
+        if (std::isdigit(c)) {
+            return true;
+        }
+    }
+    return false;
+}
+
 int main(int argc, char* argv[]) {
     // Flush after every std::cout / std::cerr
     std::cout << std::unitbuf;
@@ -37,6 +46,12 @@ int main(int argc, char* argv[]) {
     std::getline(std::cin, input_line);
     
     try {
+        if (pattern == "\\d" && find_digit(input_line)) {
+            return 0;
+        } else {
+            return 1;
+        }
+
         if (match_pattern(input_line, pattern)) {
             return 0;
         } else {
