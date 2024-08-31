@@ -186,7 +186,7 @@ int main(int argc, char* argv[]) {
         } 
         else{ //Chance logic or else fail
             if(pattern_idx < pattern.length() - 1 && pattern[pattern_idx + 1] == '?'){
-                pattern_idx += 2;
+                pattern_idx ++;
                 cout<<"Chance"<<endl;
                 continue;
             }
