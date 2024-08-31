@@ -63,6 +63,7 @@ int grep(string pattern, string input_line){
             int result = 0;
             while(pattern_idx <= end){
                 p += pattern[++pattern_idx];
+                cout<<"test"<<endl;
                 if(pattern[pattern_idx] == '|'){
                     p = '^' + p + '$';
                     cout<<"Checking Pattern: "<<p<<endl;
