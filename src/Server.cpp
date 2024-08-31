@@ -1,27 +1,28 @@
 #include <iostream>
 #include <string>
+using namespace std;
 
-bool match_pattern(const std::string& input_line, const std::string& pattern) {
+bool match_pattern(const string& input_line, const string& pattern) {
     if (pattern.length() == 1) {
-        return input_line.find(pattern) != std::string::npos;
+        return input_line.find(pattern) != string::npos;
     }
     else {
-        throw std::runtime_error("Unhandled pattern " + pattern);
+        throw runtime_error("Unhandled pattern " + pattern);
     }
 }
 
-bool find_digit(const std::string& input_line) {
+bool find_digit(const string& input_line) {
     for (char c : input_line) {
-        if (std::isdigit(c)) {
+        if (isdigit(c)) {
             return true;
         }
     }
     return false;
 }
 
-bool find_alpha(const std::string& input_line) {
+bool find_alpha(const string& input_line) {
     for (char c : input_line) {
-        if (std::isalpha(c)) {
+        if (isalpha(c)) {
             return true;
         }
     }
@@ -29,45 +30,47 @@ bool find_alpha(const std::string& input_line) {
 }
 
 int main(int argc, char* argv[]) {
-    // Flush after every std::cout / std::cerr
-    std::cout << std::unitbuf;
-    std::cerr << std::unitbuf;
+    // Flush after every cout / cerr
+    cout << unitbuf;
+    cerr << unitbuf;
 
     // You can use print statements as follows for debugging, they'll be visible when running tests.
-    std::cout << "Logs from your program will appear here" << std::endl;
+    cout << "Logs from your program will appear here" << endl;
 
     if (argc != 3) {
-        std::cerr << "Expected two arguments" << std::endl;
+        cerr << "Expected two arguments" << endl;
         return 1;
     }
 
-    std::string flag = argv[1];
-    std::string pattern = argv[2];
+    string flag = argv[1];
+    string pattern = argv[2];
 
     if (flag != "-E") {
-        std::cerr << "Expected first argument to be '-E'" << std::endl;
+        cerr << "Expected first argument to be '-E'" << endl;
         return 1;
     }
 
     // Uncomment this block to pass the first stage
     //
-    std::string input_line;
-    std::getline(std::cin, input_line);
+    string input_line;
+    getline(cin, input_line);
 
     int pattern_idx = 0;
 
     for(int i = 0; i < input_line.length(); i++){
+        cout<<"Input line char: "<<input_line[i]<<endl;
+        cout<<"Pattern char: "<<pattern[pattern_idx]<<endl;
         if (pattern[pattern_idx] == '\\'){
             pattern_idx++;
             if(pattern[pattern_idx] == 'd'){
-                if (!std::isdigit(input_line[i])){
+                if (!isdigit(input_line[i])){
                     pattern_idx = 0;
                 }
                 else {
                     pattern_idx++;
                 }
             } else if(pattern[pattern_idx] == 'w'){
-                if (!std::isalnum(input_line[i])){
+                if (!isalnum(input_line[i])){
                     pattern_idx = 0;
                 }
                 else {
@@ -123,10 +126,10 @@ int main(int argc, char* argv[]) {
     //         int flag = 1;
 
     //         if (pattern[1] == '^'){
-    //             std::cout<<1<<std::endl;
+    //             cout<<1<<endl;
     //             int x = 0;
     //             for (int i = 2; i < pattern.length() - 1; i++) {
-    //                 if(match_pattern(input_line, std::string(1, pattern[i]))){
+    //                 if(match_pattern(input_line, string(1, pattern[i]))){
     //                     x = 1;
     //                     break;
     //                 }
@@ -134,7 +137,7 @@ int main(int argc, char* argv[]) {
     //             flag = x;
     //         } else{
     //             for (int i = 1; i < pattern.length() - 1; i++) {
-    //                 if(match_pattern(input_line, std::string(1, pattern[i]))){
+    //                 if(match_pattern(input_line, string(1, pattern[i]))){
     //                     flag = 0;
     //                     break;
     //                 }
@@ -146,8 +149,8 @@ int main(int argc, char* argv[]) {
     //     } else {
     //         return 1;
     //     }
-    // } catch (const std::runtime_error& e) {
-    //     std::cerr << e.what() << std::endl;
+    // } catch (const runtime_error& e) {
+    //     cerr << e.what() << endl;
     //     return 1;
     // }
 }
