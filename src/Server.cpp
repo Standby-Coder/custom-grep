@@ -58,69 +58,58 @@ int main(int argc, char* argv[]) {
     int pattern_idx = 0;
 
     for(int i = 0; i < input_line.length(); i++){
-        cout<<"Input line char: "<<input_line[i]<<endl;
-        cout<<"Pattern char: "<<pattern[pattern_idx]<<endl;
+        if (pattern_idx == pattern.length()){
+            break;
+        }
+
         if (pattern[pattern_idx] == '\\'){
             pattern_idx++;
             if(pattern[pattern_idx] == 'd'){
                 cout<<"Search Digit"<<endl;
                 if (!isdigit(input_line[i])){
                     pattern_idx = 0;
-                    cout<<"Fail"<<endl;
                 }
                 else {
                     pattern_idx++;
-                    cout<<"Success"<<endl;
                 }
             } else if(pattern[pattern_idx] == 'w'){
                 cout<<"Search AlphaNum"<<endl;
                 if (!isalnum(input_line[i])){
                     pattern_idx = 0;
-                    cout<<"Fail"<<endl;
                 }
                 else {
-                    cout<<"Success"<<endl;
                     pattern_idx++;
                 }
             }
         } 
         else if (pattern[pattern_idx] == '['){
-            cout<<"Search Bracket"<<endl;
             int flag = 1;
             if (pattern[pattern_idx + 1] == '^'){
-                cout<<"Search Not"<<endl;
                 int x = 0;
                 for (int j = pattern_idx + 2; j < pattern.length() - 1; j++){
                     if (input_line[i] == pattern[j]){
-                        cout<<"Fail"<<endl;
                         x = 1;
                         break;
                     }
                 }
                 flag = x;
             } else{
-                cout<<"Search Normal"<<endl;
                 for (int j = pattern_idx + 1; j < pattern.length() - 1; j++){
                     if (input_line[i] == pattern[j]){
                         flag = 0;
-                        cout<<"Success"<<endl;
                         break;
                     }
                 }
             }
             if (flag){
-                cout<<"Fail2"<<endl;
                 pattern_idx = 0;
             } else{
-                cout<<"Success2"<<endl;
                 pattern_idx++;
             }
         }
         else if (input_line[i] == pattern[pattern_idx]){
-            cout<<"Match "<<pattern[pattern_idx]<<endl;
             pattern_idx++;
         } else{
-            cout<<"Failure"<<endl;
             pattern_idx = 0;
         }
     }
