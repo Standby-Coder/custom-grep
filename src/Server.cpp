@@ -209,6 +209,7 @@ int grep(string pattern, string input_line){
     }
 
     if (pattern_idx == pattern.length()){
+        cout<<"Success 0"<<endl;
         return 0;
     } else{
         return 1;
