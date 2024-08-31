@@ -78,10 +78,12 @@ int main(int argc, char* argv[]) {
 
         cout<<"Input line char: "<<input_line[i]<<endl;
         cout<<"Pattern char: "<<pattern[pattern_idx]<<endl;
+
         if (pattern[pattern_idx] == '?'){
             pattern_idx++;
+            i--;
         }
-        else if (pattern[pattern_idx] == '+'){
+        else if (pattern[pattern_idx] == '+'){ // One or more
             char prev = pattern[pattern_idx - 1];
             while(prev == input_line[i]){
                 i++;
@@ -89,7 +91,7 @@ int main(int argc, char* argv[]) {
             i--;
             pattern_idx++;
         }
-        else if (pattern[pattern_idx] == '\\'){
+        else if (pattern[pattern_idx] == '\\'){ // Check for digit and alphanumerics
             pattern_idx++;
             if(pattern[pattern_idx] == 'd'){
                 cout<<"Search Digit"<<endl;
@@ -131,7 +133,7 @@ int main(int argc, char* argv[]) {
                 }
             }
         } 
-        else if (pattern[pattern_idx] == '['){
+        else if (pattern[pattern_idx] == '['){ //check for regex
             cout<<"Search Bracket"<<endl;
             unordered_map<char, int> m;
             
@@ -178,10 +180,11 @@ int main(int argc, char* argv[]) {
                 }
             } 
         }
-        else if (input_line[i] == pattern[pattern_idx]){
+        else if (input_line[i] == pattern[pattern_idx]){ // Check for exact match
             cout<<"Match "<<pattern[pattern_idx]<<endl;
             pattern_idx++;
-        } else{
+        } 
+        else{ //Chance logic or else fail
             if(pattern_idx < pattern.length() - 1 && pattern[pattern_idx + 1] == '?'){
                 pattern_idx += 2;
                 cout<<"Chance"<<endl;
