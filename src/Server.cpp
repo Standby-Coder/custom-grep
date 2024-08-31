@@ -63,6 +63,7 @@ int main(int argc, char* argv[]) {
         if (pattern[pattern_idx] == '\\'){
             pattern_idx++;
             if(pattern[pattern_idx] == 'd'){
+                cout<<"Search Digit"<<endl;
                 if (!isdigit(input_line[i])){
                     pattern_idx = 0;
                 }
@@ -70,6 +71,7 @@ int main(int argc, char* argv[]) {
                     pattern_idx++;
                 }
             } else if(pattern[pattern_idx] == 'w'){
+                cout<<"Search AlphaNum"<<endl;
                 if (!isalnum(input_line[i])){
                     pattern_idx = 0;
                 }
@@ -79,8 +81,10 @@ int main(int argc, char* argv[]) {
             }
         } 
         else if (pattern[pattern_idx] == '['){
+            cout<<"Search Bracket"<<endl;
             int flag = 1;
             if (pattern[pattern_idx + 1] == '^'){
+                cout<<"Search Not"<<endl;
                 int x = 0;
                 for (int j = pattern_idx + 2; j < pattern.length() - 1; j++){
                     if (input_line[i] == pattern[j]){
@@ -90,6 +94,7 @@ int main(int argc, char* argv[]) {
                 }
                 flag = x;
             } else{
+                cout<<"Search Normal"<<endl;
                 for (int j = pattern_idx + 1; j < pattern.length() - 1; j++){
                     if (input_line[i] == pattern[j]){
                         flag = 0;
@@ -104,6 +109,7 @@ int main(int argc, char* argv[]) {
             }
         }
         if (input_line[i] == pattern[pattern_idx]){
+            cout<<"Matched"<<endl;
             pattern_idx++;
         } else{
             pattern_idx = 0;
