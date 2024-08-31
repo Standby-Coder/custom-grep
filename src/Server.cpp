@@ -62,13 +62,13 @@ int grep(string pattern, string input_line){
 
             int end = int(pattern.find(')', pattern_idx));
             string p = "";
-            int result = 0;
+            int result = 1;
             
             while(pattern_idx <= end){
                 if(pattern[pattern_idx] == '|'){
                     p = '^' + p + '$';
                     cout<<"Checking Pattern: "<<p<<endl;
-                    result = result || grep(p, input_line.substr(i, p.length() - 2));
+                    result = result && grep(p, input_line.substr(i, p.length() - 2));
                     if (result){
                         cout<<"Success Pattern"<<endl;
                         break;
