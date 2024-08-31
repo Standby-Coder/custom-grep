@@ -76,9 +76,8 @@ int grep(string pattern, string input_line){
                 }
                 if(result)
                     break;
-                else
-                    return 0;
             }   
+            if(!result) return 0;
         }
         else if(pattern[pattern_idx] == '.'){ // Any character
             pattern_idx++;
