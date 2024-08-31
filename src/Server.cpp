@@ -76,7 +76,7 @@ int grep(string pattern, string input_line){
                     p = "";
                 }
                 else{
-                    p += pattern[pattern_idx++];
+                    p += pattern[pattern_idx++];;
                     cout<<p<<endl;
                 }
                 if(result)
