@@ -53,45 +53,101 @@ int main(int argc, char* argv[]) {
     //
     std::string input_line;
     std::getline(std::cin, input_line);
-    
-    try {
-        if (pattern == "\\w" && (find_alpha(input_line) || find_digit(input_line))) {
-            return 0;
-        } else
-        if (pattern == "\\d" && find_digit(input_line)) {
-            return 0;
-        } else if(pattern[0] == '['){
-            int flag = 1;
 
-            if (pattern[1] == '^'){
-                std::cout<<1<<std::endl;
+    int pattern_idx = 0;
+
+    for(int i = 0; i < input_line.length(); i++){
+        if (pattern[pattern_idx] == '\\'){
+            pattern_idx++;
+            if(pattern[pattern_idx] == 'd'){
+                if (!std::isdigit(input_line[i])){
+                    pattern_idx = 0;
+                }
+                else {
+                    pattern_idx++;
+                }
+            } else if(pattern[pattern_idx] == 'w'){
+                if (!std::isalnum(input_line[i])){
+                    pattern_idx = 0;
+                }
+                else {
+                    pattern_idx++;
+                }
+            }
+        } 
+        else if (pattern[pattern_idx] == '['){
+            int flag = 1;
+            if (pattern[pattern_idx + 1] == '^'){
                 int x = 0;
-                for (int i = 2; i < pattern.length() - 1; i++) {
-                    if(match_pattern(input_line, std::string(1, pattern[i]))){
-                        std::cout<<pattern[i]<<std::endl;
+                for (int j = pattern_idx + 2; j < pattern.length() - 1; j++){
+                    if (input_line[i] == pattern[j]){
                         x = 1;
                         break;
                     }
                 }
                 flag = x;
             } else{
-                std::cout<<2<<std::endl;
-                for (int i = 1; i < pattern.length() - 1; i++) {
-                    if(match_pattern(input_line, std::string(1, pattern[i]))){
+                for (int j = pattern_idx + 1; j < pattern.length() - 1; j++){
+                    if (input_line[i] == pattern[j]){
                         flag = 0;
                         break;
                     }
                 }
             }
-            std::cout<<flag<<std::endl;
-            return flag;
-        } else if (match_pattern(input_line, pattern)) {
-            return 0;
-        } else {
-            return 1;
+            if (flag){
+                pattern_idx = 0;
+            } else{
+                pattern_idx++;
+            }
         }
-    } catch (const std::runtime_error& e) {
-        std::cerr << e.what() << std::endl;
+        if (input_line[i] == pattern[pattern_idx]){
+            pattern_idx++;
+        } else{
+            pattern_idx = 0;
+        }
+    }
+
+    if (pattern_idx == pattern.length()){
+        return 0;
+    } else{
         return 1;
     }
+    
+    // try {
+    //     if (pattern == "\\w" && (find_alpha(input_line) || find_digit(input_line))) {
+    //         return 0;
+    //     } else
+    //     if (pattern == "\\d" && find_digit(input_line)) {
+    //         return 0;
+    //     } else if(pattern[0] == '['){
+    //         int flag = 1;
+
+    //         if (pattern[1] == '^'){
+    //             std::cout<<1<<std::endl;
+    //             int x = 0;
+    //             for (int i = 2; i < pattern.length() - 1; i++) {
+    //                 if(match_pattern(input_line, std::string(1, pattern[i]))){
+    //                     x = 1;
+    //                     break;
+    //                 }
+    //             }
+    //             flag = x;
+    //         } else{
+    //             for (int i = 1; i < pattern.length() - 1; i++) {
+    //                 if(match_pattern(input_line, std::string(1, pattern[i]))){
+    //                     flag = 0;
+    //                     break;
+    //                 }
+    //             }
+    //         }
+    //         return flag;
+    //     } else if (match_pattern(input_line, pattern)) {
+    //         return 0;
+    //     } else {
+    //         return 1;
+    //     }
+    // } catch (const std::runtime_error& e) {
+    //     std::cerr << e.what() << std::endl;
+    //     return 1;
+    // }
 }
