@@ -31,7 +31,7 @@ bool find_alpha(const string& input_line) {
     return false;
 }
 
-int grep( string pattern, string input){
+int grep( string pattern, string input_line){
     int pattern_idx = 0;
     int strict_start = pattern[pattern_idx] == '^' ? 1 : 0;
     if (strict_start){
