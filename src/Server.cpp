@@ -84,6 +84,7 @@ int main(int argc, char* argv[]) {
             while(prev == input_line[i]){
                 i++;
             }
+            i--;
             pattern_idx++;
         }
         else if (pattern[pattern_idx] == '\\'){
