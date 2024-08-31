@@ -48,11 +48,7 @@ int main(int argc, char* argv[]) {
     try {
         if (pattern == "\\d" && find_digit(input_line)) {
             return 0;
-        } else {
-            return 1;
-        }
-
-        if (match_pattern(input_line, pattern)) {
+        } else if (match_pattern(input_line, pattern)) {
             return 0;
         } else {
             return 1;
