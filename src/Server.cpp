@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <unordered_map>
+#include <vector>
 using namespace std;
 
 bool match_pattern(const string& input_line, const string& pattern) {
