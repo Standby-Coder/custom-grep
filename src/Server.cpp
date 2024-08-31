@@ -70,7 +70,6 @@ int main(int argc, char* argv[]) {
                     }
                 }
             }
-            
             for (int i = 1; i < pattern.length() - 1; i++) {
                 if(match_pattern(input_line, std::string(1, pattern[i]))){
                     flag = 0;
