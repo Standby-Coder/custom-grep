@@ -86,7 +86,7 @@ int grep(string pattern, string input_line){
             }
 
             if(pattern_idx == end){
-                cout<<"Check"<<endl;
+                return !grep(p, input_line.substr(i, p.length() - 2));
             }
         }
         else if(pattern[pattern_idx] == '.'){ // Any character
